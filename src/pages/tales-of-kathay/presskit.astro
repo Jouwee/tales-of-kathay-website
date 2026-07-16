@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import Tok from '../../layouts/tok/Tok.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+<style>
+	img {
+		max-width: 700px;
+	}
+</style>
+<Tok title="Presskit">
+
+	<h2>Description</h2>
+
+	<p>Tales of Kathay is a turn-based role-playing game set in a rich, living world that's entirely procedural and deeply simulated.</p>
+
+	<p>Uncover a world shaped by thousands of years of dynamic, simulated history—where kingdoms rise and fall, legends are born, and the consequences of your actions ripple across generations. Whether you’re delving into ancient dungeons, forging alliances, or altering the fate of empires, your choices truly matter.</p>
+
+	<p>Engage in tactical, turn-based combat inspired by classic tabletop RPGs, where creativity and planning are rewarded. Create your own stories in a sandbox world that evolves whether you’re there to shape it or simply observe it unfold. </p>
+
+	<h2>Fact Sheet</h2>
+	<ul>
+		<li>Name: Tales of Kathay</li>
+		<li>Developer: Jouwee</li>
+		<li>Release Date (Open Alpha): August 16th, 2025</li>
+		<li>Available On: Steam, Itch.io</li>
+		<li>Current Platforms: Windows, Linux</li>
+		<li>Genre: RPG Roguelike</li>
+		<li>Website: jouwee.github.io/tales-of-kathay/</li>
+		<li>Press Contact: jouweej@gmail.com</li>
+	</ul>
+
+	<h2>Key Art</h2>
+	
+	<h3>Logo</h3>
+	<img src="/presskit/Logo.png">
+
+	<h3>Main Capsule</h3>
+	<img src="/presskit/Main Capsule.png">
+	
+	<h3>Small Capsule</h3>
+	<img src="/presskit/Small Capsule.png">
+
+	<h3>Vertical Capsule</h3>
+	<img src="/presskit/Vertical Capsule.png">
+
+	<h2>Screenshots</h2>
+	<img src="/presskit/screenshot-0.png">
+	<img src="/presskit/screenshot-1.png">
+	<img src="/presskit/screenshot-2.png">
+	<img src="/presskit/screenshot-3.png">
+	<img src="/presskit/screenshot-4.png">
+	<img src="/presskit/screenshot-5.png">
+	<img src="/presskit/screenshot-6.png">
+	<h2>Trailers</h2>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/DD70xf6vkQU?si=UD5kIj1f2yBkiGFa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</Tok>

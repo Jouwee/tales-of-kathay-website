@@ -1,0 +1,65 @@
+---
+import '../../styles/tok.css';
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+
+type Props = { title: string, description?: string };
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description || ''} />
+		<style>
+			main {
+				width: 960px;
+			}
+
+			nav ul {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2rem;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			
+			nav ul li * {
+				text-decoration: none;
+			}
+
+			nav ul li {
+				width: inherit;
+			}
+
+			nav ul li a::before {
+				content: '['
+			}
+
+			nav ul li a::after {
+				content: ']'
+			}
+		</style>
+	</head>
+
+	<body>
+		<main>
+			<h1>Tales of Kathay</h1>
+
+			<nav>
+				<ul>
+					<li><a href="/tales-of-kathay">Home</a></li>
+					<li><a href="https://store.steampowered.com/app/3939340/Tales_of_Kathay/">Steam</a></li>
+					<li><a href="https://jouwee.itch.io/tales-of-kathay">Itch.io</a></li>
+					<li><a href="https://discord.gg/BHWJMftS9r">Discord</a></li>
+					<li><a href="https://www.patreon.com/cw/Jouwee">Patreon</a></li>
+					<li><a href="presskit">Press Kit</a></li>
+				</ul>
+			</nav>
+
+			<slot />
+		</main>
+	</body>
+</html>
