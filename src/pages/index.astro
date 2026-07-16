@@ -1,34 +1,100 @@
 ---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
+<style>
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<main>
-			<h1>Hi, I'm Jouwee</h1>
-			<p>I make games and other silly things.</p>
-			<h2>My projects</h2>
-			<ul>
-			<li>
-				<a href="tales-of-kathay">Tales of Kathay</a> - a turn-based RPG with an
-				emergent storyline.
-			</li>
-			</ul>
-			<h2>Projects I endorse</h2>
-			<ul>
-			<li>
-				<a href="https://permacomputing.net/Principles/">Permacomputing</a> - design principles for sustainable computing.
-			</li>
-			</ul>
-			<p>Check me out at <a rel="me" href="https://mastodon.social/@jouwee">Mastodon</a> and <a rel="me" href="https://github.com/Jouwee">GitHub</a>.
+	section.pitch {
+		text-align: center;
+		font-size: 1.1rem;
+	}
 
-		</main>
-	</body>
-</html>
+	section.development {
+		text-align: center;
+		padding: 3rem 6rem;
+	}
+
+	section .wishlist {
+		font-size: 1.25em;
+		display: inline-block;
+		border: 2px solid var(--border);
+		padding: 1rem 2rem;
+	}
+
+	section.updates ul {
+		display: flex;
+		flex-direction: column;
+		list-style-type: none;
+		padding: 0;
+		gap: 1rem;
+	}
+	section.updates ul li a {
+		display: flex;
+		gap: 1rem;
+		text-decoration: none;
+	}
+
+	ul li img {
+		width: 200px;
+	}
+
+</style> 
+
+<Base title="Home">
+
+	<section class="pitch">
+		<p><b>Tales of Kathay</b> is a tactical turn-based RPG set in procedurally generated worlds shaped by centuries of simulated history.</p>
+
+		<p>Before your adventure begins, the world creates its own past. Kingdoms rise, factions expand, wars are fought, settlements are founded, cities fall, and forgotten powers leave their mark on the land. The map you explore is not just random terrain, but the result of everything that happened before your first step.</p>
+
+		<p>Explore ancient ruins, protect villages, raid dungeons, craft equipment, join faction wars, and decide what kind of mark your hero leaves behind. When one story ends, the world continues.</p>
+
+		<a class="wishlist" href="https://store.steampowered.com/app/3939340/Tales_of_Kathay/">Wishlist Now</a>
+
+	</section>
+
+	<section class="odd">
+		<h2>Trailer</h2>
+		<iframe width="840" height="473" src="https://www.youtube.com/embed/DD70xf6vkQU?si=84Y9TKuNktR55eDu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	</section>
+
+	<section class="development">
+		<h2>Development</h2>
+		<p>This game is a long term project, inspired by the developers of games such as Dwarf Fortress, Caves of Qud, and Project Zomboid.</p>
+		<p>The goal is to continue updating the game and adding new features for years to come, and eventually build a truly massive and procedural Role Playing Game.</p>
+		<p>If you wish to support the development of the game beyond wishlisting and purchasing it, you can also support me on <a href="https://www.patreon.com/cw/Jouwee">Patreon</a>.</p>
+	</section>
+
+	<section class="updates odd">
+		<h2>Updates & News</h2>
+
+		<ul>
+			{
+				posts.map((post) => (
+					<li>
+						<a href={`/${post.id}/`}>
+							{post.data.heroImage && (
+								<Image width={720} height={360} src={post.data.heroImage} alt="" />
+							)}
+							<div class="right">
+								<h4 class="title">{post.data.title}</h4>
+								<p class="date">
+									<FormattedDate date={post.data.pubDate} />
+								</p>
+							</div>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</Tok>
